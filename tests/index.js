@@ -1,6 +1,5 @@
 var RaddishDB = require('../index');
 
-console.time('mysql');
 RaddishDB.setConfig({
     default: {
         host: 'localhost',
@@ -17,11 +16,10 @@ var instance = RaddishDB.getInstance('default'),
 var query = builder
                 .select('tbl.*')
                 .from('categories', 'tbl')
-                // Custom typed queries. This so you can do your own chaining.
-                // This might be improved in time!
-                .where('tbl.id IN (1, 2)');
-
-console.log(query.toQuery());
+                // This is better, however almost the same to the current API,
+                // I want it to be more intuitive!
+                // Next to that I want the same API!
+                .where('tbl.id', 'IN', [1, 2]);
 
 instance.execute(query)
     .then(function(result) {

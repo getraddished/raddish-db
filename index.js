@@ -1,39 +1,72 @@
+global.Promise = global.Promise || require('bluebird');
+
 /**
- * I have to think about a good API, some parts are separate, however I have to check when and how to join them.
- * So first an API, which has to feel as natural as possible.
+ * The RaddishDB class is the main file that will be called
+ * and will also hold all of the functionality.
+ *
+ * Next to that the AbstractAdapter is exported for extendibility.
  */
+function RaddishDB() {
+    this.config = {};
+    this.instances = {};
+    this.adapters = {};
 
-function 
+    this.AbstractAdapter = require('./lib/abstract/adapter');
+}
 
-var db = require('raddish-db');
-db.setConfig({
-    default: {
-        host: 'localhost',
-        user: 'root',
-        pass: 'root',
-        type: 'mysql',
-        database: 'temp',
-        ssh: {
-            host: 'example.com',
-            user: 'jasper',
-            pass: 'jasper'
+/**
+ * This method sets all the config parameters of the Raddish-DB layer.
+ * This is the initial method to be called before use.
+ *
+ * @param {Object}      config  The config object for the database layer.
+ * @returns {RaddishDB}         The RaddishDB object for chaining.
+ */
+RaddishDB.prototype.setConfig = function(config) {
+    this.config = config;
+
+    return this;
+};
+
+/**
+ * This method will return a database adapter or will throw an error when the database
+ * adapter doesn't exist. This method will first check the existing adapter objects
+ * when it doesn't find the object it will check in the custom adapters.
+ *
+ * @param {String} instance     The database instance to be used.
+ * @returns {*}                 The required database adapter.
+ */
+RaddishDB.prototype.getInstance = function(instance) {
+    if(!this.instances[instance]) {
+        var config = this.config[instance];
+
+        try {
+            var Adapter = require('./lib/' + config.type + '/adapter');
+            this.instances[instance] = new Adapter(config);
+        } catch (error) {
+            if(!this.adapters[config.type]) {
+                throw new TypeError('This adapter type (' + config.type + ') doesn\'t exist.');
+            }
+
+            this.instances[instance] = new (this.adapters[config.type])(config);
         }
     }
-});
 
-var instance = db.getInstance('default');
-var query = instance.getQueryBuilder();
-query
-    .select()
-    .from('foo', 'tbl')
-    .where('tbl.id', '=', 10);
+    return this.instances[instance];
+};
 
-instance.execute(query)
-    .then(function(rows) {
-        // This contains the updated, selected or deleted row/ rows
-        // Except when a delete method is called, there of course is no data.
-        console.log(rows)
-    })
-    .catch(function(error) {
-        console.log(error);
-    });
+/**
+ * This method adds the possibility to allow for custom adapters to be added.
+ *
+ * @param {String} type         The name of the adapter type.
+ * @param {Object} adapter      The un initialized adapter object.
+ * @returns {RaddishDB}         The RaddishDB object for chaining.
+ */
+RaddishDB.prototype.addCustomAdapter = function(type, adapter) {
+    if(!this.adapters[type]) {
+        this.adapters[type] = adapter;
+    }
+
+    return this;
+};
+
+module.exports = new RaddishDB();
