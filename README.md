@@ -1,5 +1,10 @@
 # Raddish-DB
 
+[![Build Status](https://img.shields.io/travis/getraddished/raddish-db.svg?style=flat-square)](https://travis-ci.org/getraddished/raddish-db)
+[![Code Climate](https://img.shields.io/codeclimate/github/getraddished/raddish-db.svg?style=flat-square)](https://codeclimate.com/github/getraddished/raddish-db)
+[![Coverage Status](https://img.shields.io/codeclimate/coverage/github/getraddished/raddish-db.svg?style=flat-square)](https://coveralls.io/r/JaspervRijbroek/raddish?branch=develop)
+[![Author](https://img.shields.io/badge/author-%40jaspervrijbro-brightgreen.svg?style=flat-square)](https://twitter.com/JaspervanRijbro)
+
 Raddish-DB is the database layer of raddish, also to be used standalone in other projects.  
 Feel free to fork and submit a pull request when deemed necessary.
 

@@ -11,15 +11,29 @@ RaddishDB.setConfig({
 });
 
 var instance = RaddishDB.getInstance('default'),
-    builder = instance.getBuilder('select');
+    builder = instance.getBuilder();
 
 var query = builder
                 .select('tbl.*')
                 .from('categories', 'tbl')
-                // This is better, however almost the same to the current API,
-                // I want it to be more intuitive!
-                // Next to that I want the same API!
                 .where('tbl.id', 'IN', [1, 2]);
+
+// var query = builder
+//                 .update('categories')
+//                 .set('title', 'bla')
+//                 .where('tbl.id', 'IN', [1, 2]);
+
+var query = builder
+                .insert()
+                .into('bla')
+                .set('title', 'hello')
+                .set('id', '55');
+
+// var query = builder
+//                 .delete()
+//                 .from('table')
+//                 .where('tbl.id', 'IN', [1, 2]);
+
 
 instance.execute(query)
     .then(function(result) {
