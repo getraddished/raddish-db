@@ -18,6 +18,8 @@ var query = builder
                 .from('categories', 'tbl')
                 .where('tbl.id', 'IN', [1, 2]);
 
+console.log(query.toQuery());
+
 // var query = builder
 //                 .update('categories')
 //                 .set('title', 'bla')
@@ -26,8 +28,12 @@ var query = builder
 var query = builder
                 .insert()
                 .into('bla')
-                .set('title', 'hello')
-                .set('id', '55');
+                // .set('title', 'hello')
+                // .set('id', '55');
+
+console.log(query);
+
+return false;
 
 // var query = builder
 //                 .delete()
