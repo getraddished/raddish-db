@@ -1,4 +1,5 @@
-var RaddishDB = require('../index');
+var RaddishDB = require('../index'),
+    should = require('should');
 
 RaddishDB.setConfig({
     default: {
@@ -10,51 +11,27 @@ RaddishDB.setConfig({
     }
 });
 
-var instance = RaddishDB.getInstance('default'),
-    builder = instance.getBuilder();
+describe('Basic tests', function() {
+    describe('getInstance tests', function() {
+        it('should return a correct instance', function() {
+            var instance = RaddishDB.getInstance('default');
 
-var query = builder
-                .select('tbl.*')
-                .from('categories', 'tbl')
-                .where('tbl.id', 'IN', [1, 2]);
+            instance.should.be.an.Object;
+            instance.should.have.property('type', 'mysql');
+        });
 
-console.log(query.toQuery());
+        it('Should return a query builder', function() {
+            var builder = RaddishDB.getInstance('default').getBuilder();
 
-// var query = builder
-//                 .update('categories')
-//                 .set('title', 'bla')
-//                 .where('tbl.id', 'IN', [1, 2]);
+            builder.should.be.an.Object;
+            builder.constructor.name.should.be.exactly('Builder');
+        });
 
-var query = builder
-                .insert()
-                .into('bla')
-                // .set('title', 'hello')
-                // .set('id', '55');
+        it('Should return the correct query builder', function() {
+            var builder = RaddishDB.getInstance('default').getBuilder();
 
-console.log(query);
-
-return false;
-
-// var query = builder
-//                 .delete()
-//                 .from('table')
-//                 .where('tbl.id', 'IN', [1, 2]);
-
-
-instance.execute(query)
-    .then(function(result) {
-        console.log(result);
-        console.timeEnd('mysql');
+            builder.select().constructor.name.should.be.exactly('MysqlSelect');
+            builder.insert().constructor.name.should.be.exactly('MysqlInsert');
+        });
     });
-
-console.time('query');
-instance.execute('SELECT * FROM categories')
-    .then(function(result) {
-        console.timeEnd('query');
-    });
-
-console.time('query');
-instance.execute('SELECT * FROM categories')
-    .then(function(result) {
-        console.timeEnd('query');
-    });
+});

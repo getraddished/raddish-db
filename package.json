@@ -22,6 +22,10 @@
     "mongodb": "*",
     "sqlite": "*"
   },
+  "scripts": {
+      "test": "mocha tests/* -R spec -t 15000",
+      "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks -t 15000 tests/"
+  },
   "keywords": [
     "orm",
     "promises",
