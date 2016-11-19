@@ -1,6 +1,7 @@
 {
   "name": "raddish-db",
   "description": "A query builder and database layer.",
+  "version": "0.0.1",
   "author": {
     "name": "Jasper van Rijbroek",
     "email": "jasper@jvar.nl",
