@@ -1,5 +1,7 @@
 # Raddish-DB
 
+[![Raddish Logo](http://getraddish.com/assets/img/logos/raddish-db.svg)](https://github.com/getraddished/raddish-db)
+
 [![Build Status](https://img.shields.io/travis/getraddished/raddish-db.svg?style=flat-square)](https://travis-ci.org/getraddished/raddish-db)
 [![Code Climate](https://img.shields.io/codeclimate/github/getraddished/raddish-db.svg?style=flat-square)](https://codeclimate.com/github/getraddished/raddish-db)
 [![Coverage Status](https://img.shields.io/codeclimate/coverage/github/getraddished/raddish-db.svg?style=flat-square)](https://coveralls.io/r/JaspervRijbroek/raddish?branch=develop)
