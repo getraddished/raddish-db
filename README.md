@@ -12,28 +12,75 @@ Feel free to fork and submit a pull request when deemed necessary.
 
 This module is a evolution of the universal-query module, this module will completely replace that module.
 
-## What can you expect from this module?
-This module is an evolution of universal-query and thus a query builder is bound to be included,
-next to this a complete database layer is included as well following the same principles!
+## About
+Raddish-DB continues on the mindset of Raddish, give a generic API no matter wich database you use.  
+For the currently supported databases you will get one single API without any differences.
 
-The same API for all the adapters, no exception there!
+Currently supprted are:
+- Mysql
+- MongoDB
+- SQLite
+- More to be announced.
 
-### Features
+## Generic API
+There is one single API that is used to get database instances and set the config.  
+This API is described below (examples below):
 
-- Out of the box support for mysql, sqlite, mongo and postgresql.
-- Optional ssh layer.
-- Super fast performance
-- Promise based API.
-- Option to add custom adapters.
+**setConfig(object)**:  
+This sets the config of the database layer.
 
-## A little road map
-At this moment it is planned to move this to a C++ language, just for performance matters,
-and of course to learn a new language, but mostly the performance.
+**getInstance(name)**:  
+This will return an instance.
 
-Although the first version will be build in node and later converted to C++ for first the API must be there.
-Then the rest will follow just as easy.
+## Database Layer API
+The database layer also has a few methods.
 
-## Contributing
-So you want to contribute, we love you!
+**getConnection()**:  
+This makes the actual connection and return it.  
+Whenever there is already a connection made this will be returned.
 
-Please create a fork and update/ patch the required files and send us a pull request.
+**getBuilder()**:  
+This method will return the query builder instance.  
+After calling this method you can start builing your query.
+
+**execute(query)**:  
+This method will execute a query.  
+This can accept a string or an object from the query builder.  
+When an object is passed it will try run the ```toQuery``` method on it.
+ 
+## Querybuilder API
+The query builder has one and the same API no matter the layer you choose.
+Below the methods are descibed. A difference is made between the query methods (insert, update, select and delete).
+
+Although a few method can be called directly on the builder object.
+
+### InsertQuery API
+
+**into(table)**:  
+Specify the table/ collection to insert the object into.
+
+**set(key, value)**:  
+Set the key and the value to insert.
+
+### UpdateQuery API
+
+**table(table)**:  
+The table which to set the update on.
+
+**set(key, value)**:
+Set the new value on the given key.
+
+**where(column, constraint, value, next)**:  
+Add a where clause to the query.
+The next value can be (AND, OR) for multiple where clauses, when no value is given ```AND``` will be assumed.
+
+### SelectQuery API
+
+### DeleteQuery API
+
+**from(table)**:  
+The table which to delete from.
+
+**where(column, constraint, value, next)**:  
+Add a where clause to the query.
+The next value can be (AND, OR) for multiple where clauses, when no value is given ```AND``` will be assumed.
