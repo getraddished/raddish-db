@@ -18,14 +18,13 @@
     "should": "8.2.1"
   },
   "dependencies": {
-    "bluebird": "*",
     "mongodb": "*",
     "mysql2": "*",
     "sqlite": "*"
   },
   "scripts": {
-    "test": "mocha tests/* -R spec -t 15000",
-    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks -t 15000 tests/"
+    "test": "mocha -t 15000",
+    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks -t 15000"
   },
   "keywords": [
     "orm",
