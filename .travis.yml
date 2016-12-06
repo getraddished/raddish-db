@@ -1,15 +1,10 @@
 language: node_js
 sudo: false
 node_js:
-  - "0.10"
-  - "0.12"
-  - "4.0"
-  - "4.1"
-  - "4.2"
-  - "5.0"
-  - "5.1"
-  - "5.2"
-  - "5.3"
+  - "4.6"
+  - "5.12"
+  - "6.9"
+  - "7.2"
 services:
   - mongodb
 before_script:
