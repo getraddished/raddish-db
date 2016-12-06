@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "mongodb": "*",
-    "mysql2": "*",
+    "mysql": "2.12.0",
     "sqlite": "*"
   },
   "scripts": {
