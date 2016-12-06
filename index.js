@@ -6,7 +6,7 @@
  *
  * Next to that the AbstractAdapter is exported for extendibility.
  */
-class RadddishDB {
+class RaddishDB {
     constructor() {
         this.config = {};
         this.instances = {};
