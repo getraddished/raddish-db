@@ -12,7 +12,7 @@ class RaddishDB {
         this.instances = {};
         this.adapters = {};
 
-        this.AbstractAdapter = require('./lib/abstract/adapter');
+        this.AbstractAdapter = require('./lib/adapters/abstract');
     }
 
     /**
@@ -41,7 +41,7 @@ class RaddishDB {
             var config = this.config[instance];
 
             try {
-                var Adapter = require('./lib/' + config.type + '/adapter');
+                var Adapter = require('./lib/adapters/' + config.type);
                 this.instances[instance] = new Adapter(config);
             } catch (error) {
                 if(!this.adapters[config.type]) {
