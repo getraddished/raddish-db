@@ -32,16 +32,26 @@ This sets the config of the database layer.
 **getInstance(name)**:  
 This will return an instance.
 
+**getQueryBuilder()**:
+Return the query builder.
+
+**addCustomAdapter(type, adapter)**:
+Add a type to the adapter library.
+This can be any kind of adapter as long as it extends from the AbstractAdapter.
+
+**AbstractAdapter**:
+A class to extend from for creation of a custom adapter.
+
+**AbstractBuilder**:
+An adapter needs a query builder to convert a query object to a query which is suitable for your database.
+You can extend your builder from this class.
+
 ## Database Layer API
 The database layer also has a few methods.
 
 **getConnection()**:  
 This makes the actual connection and return it.  
 Whenever there is already a connection made this will be returned.
-
-**getBuilder()**:  
-This method will return the query builder instance.  
-After calling this method you can start builing your query.
 
 **execute(query)**:  
 This method will execute a query.  
@@ -81,6 +91,6 @@ The next value can be (AND, OR) for multiple where clauses, when no value is giv
 **from(table)**:  
 The table which to delete from.
 
-**where(column, constraint, value, next)**:  
+**where(column)**:  
 Add a where clause to the query.
 The next value can be (AND, OR) for multiple where clauses, when no value is given ```AND``` will be assumed.
