@@ -24,14 +24,26 @@ describe('Basic tests', function() {
             var builder = RaddishDB.getInstance('default').getBuilder();
 
             builder.should.be.an.Object;
-            builder.constructor.name.should.be.exactly('Builder');
+            builder.constructor.name.should.be.exactly('MysqlBuilder');
         });
+    });
 
-        it('Should return the correct query builder', function() {
-            var builder = RaddishDB.getInstance('default').getBuilder();
+    describe('QueryBuilder tests', function() {
+        it('Should return a valid select statement.', function() {
+            var query = RaddishDB.getQueryBuilder()
+                .select('*')
+                .from('foo')
+                .where('bar').is('baz');
 
-            builder.select().constructor.name.should.be.exactly('MysqlSelect');
-            builder.insert().constructor.name.should.be.exactly('MysqlInsert');
+            var built = RaddishDB.getInstance('default').getBuilder().build(query);
+
+            built.should.equal('SELECT * FROM `foo` WHERE (`bar` = \'baz\')');
+        });
+    });
+
+    describe('Query tests', function() {
+        it('Should return a correct select result.', function() {
+
         });
     });
 });
