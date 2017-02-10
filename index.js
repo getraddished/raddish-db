@@ -13,6 +13,7 @@ class RaddishDB {
         this.adapters = {};
 
         this.AbstractAdapter = require('./lib/adapters/abstract');
+        this.AbstractBuilder = require('./lib/builders/abstract');
     }
 
     /**
@@ -41,8 +42,7 @@ class RaddishDB {
             var config = this.config[instance];
 
             try {
-                var Adapter = require('./lib/adapters/' + config.type);
-                this.instances[instance] = new Adapter(config);
+                this.instances[instance] = new (require('./lib/adapters/' + config.type))(config);
             } catch (error) {
                 if(!this.adapters[config.type]) {
                     throw new TypeError('This adapter type (' + config.type + ') doesn\'t exist.');
@@ -53,6 +53,10 @@ class RaddishDB {
         }
 
         return this.instances[instance];
+    }
+
+    getQueryBuilder() {
+        return require('./lib/query/builder');
     }
 
     /**
