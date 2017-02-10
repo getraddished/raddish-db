@@ -1,5 +1,6 @@
-var RaddishDB = require('../index'),
-    should = require('should');
+var RaddishDB = require('../index');
+
+require('should');
 
 describe('Basic module tests', function() {
     describe('These variables must be a method', function() {

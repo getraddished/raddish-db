@@ -1,5 +1,6 @@
-var RaddishDB = require('../index'),
-    should = require('should');
+var RaddishDB = require('../index');
+
+require('should');
 
 RaddishDB.setConfig({
     default: {
@@ -33,11 +34,31 @@ describe('Basic tests', function() {
             var query = RaddishDB.getQueryBuilder()
                 .select('*')
                 .from('foo')
-                .where('bar').is('baz');
+                .where('bar').is('baz'),
+                query2 = RaddishDB.getQueryBuilder()
+                    .select({
+                        'tbl.identity_column': 'id'
+                    }).from('foo', 'tbl')
+                    .where('bar').is('baz')
+                    .join('inner', 'baz').on('baz.bar', 'tbl.id'),
+                query3 = RaddishDB.getQueryBuilder()
+                    .select('*')
+                    .from('foo')
+                    .where('title').like('%test%'),
+                query4 = RaddishDB.getQueryBuilder()
+                    .select('*')
+                    .from('foo')
+                    .where('id').in([1, 2, 3]),
 
-            var built = RaddishDB.getInstance('default').getBuilder().build(query);
+                built = RaddishDB.getInstance('default').getBuilder().build(query),
+                built2 = RaddishDB.getInstance('default').getBuilder().build(query2),
+                built3 = RaddishDB.getInstance('default').getBuilder().build(query3),
+                built4 = RaddishDB.getInstance('default').getBuilder().build(query4);
 
             built.should.equal('SELECT * FROM `foo` WHERE (`bar` = \'baz\')');
+            built2.should.equal('SELECT `tbl`.`identity_column` AS `id` FROM `foo` AS `tbl` INNER JOIN `baz` ON (`baz`.`bar` = `tbl`.`id`) WHERE (`bar` = \'baz\')');
+            built3.should.equal('SELECT * FROM `foo` WHERE (`title` LIKE \'%test%\')');
+            built4.should.equal('SELECT * FROM `foo` WHERE (`id` IN (1,2,3))');
         });
     });
 
