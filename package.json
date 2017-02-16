@@ -13,14 +13,14 @@
     "url": "https://github.com/getraddished/raddish-db.git"
   },
   "devDependencies": {
-    "istanbul": "0.4.2",
-    "mocha": "2.4.5",
-    "should": "8.2.1"
+    "istanbul": "0.4.5",
+    "mocha": "3.2.0",
+    "should": "11.2.0"
   },
   "dependencies": {
-    "mongodb": "*",
+    "mongodb": "2.2.23",
     "mysql2": "1.1.2",
-    "sqlite": "3.1.8"
+    "sqlite": "2.3.0"
   },
   "scripts": {
     "test": "mocha -t 15000",
