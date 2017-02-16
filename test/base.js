@@ -7,8 +7,8 @@ RaddishDB.setConfig({
         host: 'localhost',
         type: 'mysql',
         username: 'root',
-        password: 'root',
-        database: 'aurora'
+        password: '',
+        database: 'raddish_demo'
     },
     sqlite: {
         type: 'sqlite',
@@ -22,8 +22,6 @@ RaddishDB.setConfig({
         database: 'aurora'
     }
 });
-
-console.log(process.cwd());
 
 require('should');
 
