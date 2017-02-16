@@ -7,8 +7,9 @@ node_js:
   - "7.2"
 services:
   - mongodb
+  - mysql
 before_script:
-  - mysql -e 'create database raddish_demo; use raddish_demo; create table if not exists menu_items (menu_item_id bigint(20) not null auto_increment,title varchar(255),component varchar(255),primary key(`menu_item_id`)); create table if not exists bank_accounts (bank_account_id bigint(20) not null auto_increment,amount varchar(255),component varchar(255),primary key(`bank_account_id`));'
+  - mysql -e 'create database raddish_demo; use raddish_demo; CREATE TABLE IF NOT EXISTS `accounts` (`id` int(11) unsigned NOT NULL AUTO_INCREMENT,`username` varchar(255) DEFAULT NULL,`age` int(3) DEFAULT NULL,`email` varchar(255) DEFAULT NULL,PRIMARY KEY (`id`));'
 script: "npm run-script test-travis"
 after_script: "npm install codeclimate-test-reporter && cat ./coverage/lcov.info | codeclimate-test-reporter"
 addons:
