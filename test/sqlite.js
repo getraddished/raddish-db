@@ -89,30 +89,26 @@ describe('SQLite tests', function() {
     });
 
     describe('Query execution', function() {
-        it('Should return an array with column information', function(done) {
+        it('Should return an array with column information', function() {
             return RaddishDB.getInstance('sqlite')
                 .getColumns('accounts')
                 .then(function(result) {
                     result.should.be.an.Array;
                     result.length.should.be.a.Number;
-
-                    done();
                 });
         });
 
-        it('Should return a correct select result', function(done) {
+        it('Should return a correct select result', function() {
             var query = RaddishDB.getQueryBuilder().select('*').from('accounts');
 
             return RaddishDB.getInstance('sqlite').execute(query)
                 .then(function(result) {
                     result.should.be.an.Array;
                     result.length.should.be.a.Number;
-
-                    done();
                 });
         });
 
-        it('Should return a correct insert result', function(done) {
+        it('Should return a correct insert result', function() {
             var query = RaddishDB.getQueryBuilder()
                 .insert()
                 .into('accounts')
@@ -126,8 +122,6 @@ describe('SQLite tests', function() {
                 })
                 .then(function(insertedId) {
                     insertedId.should.be.a.Number;
-
-                    done();
                 });
         });
     });

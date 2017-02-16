@@ -96,30 +96,26 @@ describe('MongoDB tests', function() {
     });
 
     describe('Query execution', function() {
-        it('Should return an array with column information', function(done) {
+        it('Should return an array with column information', function() {
             return RaddishDB.getInstance('mongo')
                 .getColumns('accounts')
                 .then(function(result) {
                     result.should.be.an.Array;
                     result.length.should.be.a.Number;
-
-                    done();
                 });
         });
 
-        it('Should return a correct select result', function(done) {
+        it('Should return a correct select result', function() {
             var query = RaddishDB.getQueryBuilder().select('*').from('accounts');
 
             return RaddishDB.getInstance('mongo').execute(query)
                 .then(function(result) {
                     result.should.be.an.Array;
                     result.length.should.be.a.Number;
-
-                    done();
                 });
         });
 
-        it('Should return a correct insert result', function(done) {
+        it('Should return a correct insert result', function() {
             var query = RaddishDB.getQueryBuilder()
                 .insert()
                 .into('accounts')
@@ -134,12 +130,10 @@ describe('MongoDB tests', function() {
                 })
                 .then(function(insertedId) {
                     insertedId.should.be.a.Number;
-
-                    done();
                 });
         });
 
-        it('Should return a correct delete result', function(done) {
+        it('Should return a correct delete result', function() {
             var query = RaddishDB.getQueryBuilder()
                 .delete()
                 .from('accounts')
@@ -148,8 +142,6 @@ describe('MongoDB tests', function() {
             return RaddishDB.getInstance('mongo').execute(query)
                 .then(function(result) {
                     result.deletedCount.should.be.a.Number;
-
-                    done();
                 });
         });
     });

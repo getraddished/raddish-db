@@ -45,6 +45,7 @@ class RaddishDB {
                 this.instances[instance] = new (require('./lib/adapters/' + config.type))(config);
             } catch (error) {
                 if(!this.adapters[config.type]) {
+                    console.log(error);
                     throw new TypeError('This adapter type (' + config.type + ') doesn\'t exist.');
                 }
 
