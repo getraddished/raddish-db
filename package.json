@@ -1,7 +1,7 @@
 {
   "name": "raddish-db",
   "description": "A query builder and database layer.",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "author": {
     "name": "Jasper van Rijbroek",
     "email": "jasper@jvar.nl",
@@ -13,18 +13,18 @@
     "url": "https://github.com/getraddished/raddish-db.git"
   },
   "devDependencies": {
-    "istanbul": "0.4.2",
-    "mocha": "2.4.5",
-    "should": "8.2.1"
+    "istanbul": "0.4.5",
+    "mocha": "3.2.0",
+    "should": "11.2.0"
   },
   "dependencies": {
-    "mongodb": "*",
+    "mongodb": "2.2.23",
     "mysql2": "1.1.2",
     "sqlite3": "3.1.8"
   },
   "scripts": {
     "test": "mocha -t 15000",
-    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks -t 15000"
+    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --harmony --report lcovonly -- --reporter spec --check-leaks -t 15000"
   },
   "keywords": [
     "orm",

@@ -1,4 +1,27 @@
+'use strict';
+
 var RaddishDB = require('../index');
+
+RaddishDB.setConfig({
+    mysql: {
+        host: 'localhost',
+        type: 'mysql',
+        username: 'root',
+        password: '',
+        database: 'raddish_demo'
+    },
+    sqlite: {
+        type: 'sqlite',
+        username: null,
+        password: null,
+        host: process.cwd() + '/test/db.sqlite'
+    },
+    mongo: {
+        host: 'localhost',
+        type: 'mongo',
+        database: 'aurora'
+    }
+});
 
 require('should');
 
