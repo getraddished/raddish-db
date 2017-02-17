@@ -124,7 +124,6 @@ describe('MongoDB tests', function() {
             return RaddishDB.getInstance('mongo').execute(query)
                 .then(function(result) {
                     result.should.be.an.Object;
-                    console.log(result);
 
                     return RaddishDB.getInstance('mongo').getInsertedId(result);
                 })
