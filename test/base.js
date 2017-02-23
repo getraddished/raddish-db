@@ -7,8 +7,8 @@ RaddishDB.setConfig({
         host: 'localhost',
         type: 'mysql',
         username: 'root',
-        password: '',
-        database: 'raddish_demo'
+        password: 'root',
+        database: 'temp'
     },
     sqlite: {
         type: 'sqlite',
@@ -19,7 +19,8 @@ RaddishDB.setConfig({
     mongo: {
         host: 'localhost',
         type: 'mongo',
-        database: 'aurora'
+        database: 'aurora',
+        pool: 5
     }
 });
 

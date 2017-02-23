@@ -105,7 +105,10 @@ describe('MySQL tests', function() {
                 .then(function(result) {
                     result.should.be.an.Array;
                     result.length.should.be.a.Number;
-                });
+                })
+                .catch(function(err) {
+                    console.log(err);
+            });
         });
 
         it('Should return a correct insert result', function() {
