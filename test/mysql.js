@@ -32,6 +32,7 @@ describe('MySQL tests', function() {
                         'tbl.identity_column': 'id'
                     }).from('foo', 'tbl')
                     .where('bar').is('baz')
+                    .or().where('bar').is('foo')
                     .join('inner', 'baz').on('baz.bar', 'tbl.id'),
                 query3 = RaddishDB.getQueryBuilder()
                     .select('*')
@@ -40,7 +41,8 @@ describe('MySQL tests', function() {
                 query4 = RaddishDB.getQueryBuilder()
                     .select('*')
                     .from('foo')
-                    .where('id').in([1, 2, 3]).limit(10).offset(5),
+                    .where('id').in([1, 2, 3])
+                    .and().where('name').is('Jasper').limit(10).offset(5),
 
                 built = RaddishDB.getInstance('mysql').getBuilder().build(query),
                 built2 = RaddishDB.getInstance('mysql').getBuilder().build(query2),
@@ -48,9 +50,9 @@ describe('MySQL tests', function() {
                 built4 = RaddishDB.getInstance('mysql').getBuilder().build(query4);
 
             built.should.equal('SELECT * FROM `foo` WHERE (`bar` = \'baz\')');
-            built2.should.equal('SELECT `tbl`.`identity_column` AS `id` FROM `foo` AS `tbl` INNER JOIN `baz` ON (`baz`.`bar` = `tbl`.`id`) WHERE (`bar` = \'baz\')');
+            built2.should.equal('SELECT `tbl`.`identity_column` AS `id` FROM `foo` AS `tbl` INNER JOIN `baz` ON (`baz`.`bar` = `tbl`.`id`) WHERE (`bar` = \'baz\') OR (`bar` = \'foo\')');
             built3.should.equal('SELECT * FROM `foo` WHERE (`title` LIKE \'%test%\')');
-            built4.should.equal('SELECT * FROM `foo` WHERE (`id` IN (1,2,3)) LIMIT 10,5');
+            built4.should.equal('SELECT * FROM `foo` WHERE (`id` IN (1,2,3)) AND (`name` = \'Jasper\') LIMIT 10,5');
         });
 
         it('Should return a valid update statement', function() {
