@@ -35,8 +35,8 @@ describe('Basic module tests', function() {
             RaddishDB.getInstance.should.be.a.function;
         });
 
-        it('getQueryBuilder should be a method', function() {
-            RaddishDB.getQueryBuilder.should.be.a.function;
+        it('getQuery should be a method', function() {
+            RaddishDB.getQuery.should.be.a.function;
         });
 
         it('addCustomAdapter should be a method', function() {

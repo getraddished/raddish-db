@@ -23,21 +23,21 @@ describe('SQLite tests', function() {
 
     describe('QueryBuilder tests', function() {
         it('Should return a valid select statement.', function() {
-            var query = RaddishDB.getQueryBuilder()
+            var query = RaddishDB.getQuery()
                 .select('*')
                 .from('foo')
                 .where('bar').is('baz'),
-                query2 = RaddishDB.getQueryBuilder()
+                query2 = RaddishDB.getQuery()
                     .select({
                         'tbl.identity_column': 'id'
                     }).from('foo', 'tbl')
                     .where('bar').is('baz')
                     .join('inner', 'baz').on('baz.bar', 'tbl.id'),
-                query3 = RaddishDB.getQueryBuilder()
+                query3 = RaddishDB.getQuery()
                     .select('*')
                     .from('foo')
                     .where('title').like('%test%'),
-                query4 = RaddishDB.getQueryBuilder()
+                query4 = RaddishDB.getQuery()
                     .select('*')
                     .from('foo')
                     .where('id').in([1, 2, 3]).limit(10).offset(5),
@@ -54,7 +54,7 @@ describe('SQLite tests', function() {
         });
 
         it('Should return a valid update statement', function() {
-            var query = RaddishDB.getQueryBuilder()
+            var query = RaddishDB.getQuery()
                     .update('accounts')
                     .set('username', 'jasper2')
                     .where('username')
@@ -66,7 +66,7 @@ describe('SQLite tests', function() {
         });
 
         it('Should return a valid insert statement', function() {
-            var query = RaddishDB.getQueryBuilder()
+            var query = RaddishDB.getQuery()
                     .insert()
                     .into('accounts')
                     .set('username', 'jasper2'),
@@ -77,7 +77,7 @@ describe('SQLite tests', function() {
         });
 
         it('Should return a valid delete statement', function() {
-            var query = RaddishDB.getQueryBuilder()
+            var query = RaddishDB.getQuery()
                 .delete()
                 .from('accounts')
                 .where('username').is('jasper2'),
@@ -99,7 +99,7 @@ describe('SQLite tests', function() {
         });
 
         it('Should return a correct select result', function() {
-            var query = RaddishDB.getQueryBuilder().select('*').from('accounts');
+            var query = RaddishDB.getQuery().select('*').from('accounts');
 
             return RaddishDB.getInstance('sqlite').execute(query)
                 .then(function(result) {
@@ -109,7 +109,7 @@ describe('SQLite tests', function() {
         });
 
         it('Should return a correct insert result', function() {
-            var query = RaddishDB.getQueryBuilder()
+            var query = RaddishDB.getQuery()
                 .insert()
                 .into('accounts')
                 .set('username', 'jasper');
