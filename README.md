@@ -32,7 +32,7 @@ This sets the config of the database layer.
 **getInstance(name)**:  
 This will return an instance.
 
-**getQueryBuilder()**:
+**getQuery()**:
 Return the query builder.
 
 **addCustomAdapter(type, adapter)**:
@@ -57,6 +57,14 @@ Whenever there is already a connection made this will be returned.
 This method will execute a query.  
 This can accept a string or an object from the query builder.  
 When an object is passed it will try run the ```toQuery``` method on it.
+
+**releaseConnection(connection)**:
+This method will release the connection back to the pool.
+This method is usually used internally, however you can use it in your scripts.
+
+**getBuilder**:
+This will return the builder object for your database,
+it will translate the query object to a query for your database.
  
 ## Querybuilder API
 The query builder has one and the same API no matter the layer you choose.
@@ -64,33 +72,22 @@ Below the methods are descibed. A difference is made between the query methods (
 
 Although a few method can be called directly on the builder object.
 
-### InsertQuery API
+Below some examples
+**Select query**
 
-**into(table)**:  
-Specify the table/ collection to insert the object into.
+```javascript
+require('raddish-db').getQuery()
+    .select('*')
+    .from('collection_name')
+    .where('foo').is('bar')
+    .or().where('name').like('%name%');
+```
 
-**set(key, value)**:  
-Set the key and the value to insert.
-
-### UpdateQuery API
-
-**table(table)**:  
-The table which to set the update on.
-
-**set(key, value)**:
-Set the new value on the given key.
-
-**where(column, constraint, value, next)**:  
-Add a where clause to the query.
-The next value can be (AND, OR) for multiple where clauses, when no value is given ```AND``` will be assumed.
-
-### SelectQuery API
-
-### DeleteQuery API
-
-**from(table)**:  
-The table which to delete from.
-
-**where(column)**:  
-Add a where clause to the query.
-The next value can be (AND, OR) for multiple where clauses, when no value is given ```AND``` will be assumed.
+**Insert query**:
+```javascript
+require('raddish-db').getQuery()
+    .select('*')
+    .from('collection_name')
+    .where('foo').is('bar')
+    .or().where('name').like('%name%');
+```
