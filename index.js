@@ -5,6 +5,8 @@
  * and will also hold all of the functionality.
  *
  * Next to that the AbstractAdapter is exported for extendibility.
+ *
+ * @class RaddishDB
  */
 class RaddishDB {
     constructor() {
@@ -55,8 +57,8 @@ class RaddishDB {
         return this.instances[instance];
     }
 
-    getQueryBuilder() {
-        return require('./lib/query/builder');
+    getQuery() {
+        return require('./lib/query/query');
     }
 
     /**
