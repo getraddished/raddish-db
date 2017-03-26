@@ -1,7 +1,7 @@
 {
   "name": "raddish-db",
   "description": "A query builder and database layer.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": {
     "name": "Jasper van Rijbroek",
     "email": "jasper@jvar.nl",
@@ -18,10 +18,10 @@
     "should": "11.2.0"
   },
   "dependencies": {
+    "generic-pool": "3.1.7",
     "mongodb": "2.2.23",
     "mysql2": "1.1.2",
     "sqlite3": "3.1.8",
-    "generic-pool": "3.1.7",
     "tunnel-ssh": "4.1.2"
   },
   "scripts": {
