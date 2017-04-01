@@ -13,8 +13,8 @@ RaddishDB.setConfig({
         host: '127.0.0.1',
         type: 'mysql',
         username: 'root',
-        password: 'root',
-        database: 'aurora'
+        password: '',
+        database: 'raddish_demo'
     },
     sqlite: {
         type: 'sqlite',
