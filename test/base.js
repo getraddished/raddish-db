@@ -6,7 +6,7 @@ RaddishDB.setConfig({
     custom: {
         type: 'custom'
     },
-    "missing": {
+    missing: {
 
     },
     mysql: {
@@ -14,12 +14,7 @@ RaddishDB.setConfig({
         type: 'mysql',
         username: 'root',
         password: 'root',
-        database: 'aurora',
-        ssh: {
-            username: 'pi',
-            password: 'raspberry',
-            host: '192.168.178.39'
-        }
+        database: 'aurora'
     },
     sqlite: {
         type: 'sqlite',
@@ -30,12 +25,7 @@ RaddishDB.setConfig({
     mongo: {
         host: 'localhost',
         type: 'mongo',
-        database: 'aurora',
-        ssh: {
-            username: 'pi',
-            password: 'raspberry',
-            host: '192.168.178.39'
-        }
+        database: 'aurora'
     }
 });
 
