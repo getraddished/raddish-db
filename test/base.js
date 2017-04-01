@@ -3,12 +3,23 @@
 var RaddishDB = require('../index');
 
 RaddishDB.setConfig({
+    custom: {
+        type: 'custom'
+    },
+    "missing": {
+
+    },
     mysql: {
-        host: 'localhost',
+        host: '127.0.0.1',
         type: 'mysql',
         username: 'root',
-        password: '',
-        database: 'raddish_demo'
+        password: 'root',
+        database: 'aurora',
+        ssh: {
+            username: 'pi',
+            password: 'raspberry',
+            host: '192.168.178.39'
+        }
     },
     sqlite: {
         type: 'sqlite',
@@ -19,7 +30,12 @@ RaddishDB.setConfig({
     mongo: {
         host: 'localhost',
         type: 'mongo',
-        database: 'aurora'
+        database: 'aurora',
+        ssh: {
+            username: 'pi',
+            password: 'raspberry',
+            host: '192.168.178.39'
+        }
     }
 });
 

@@ -43,6 +43,10 @@ class RaddishDB {
         if(!this.instances[instance]) {
             var config = this.config[instance];
 
+            if(!config) {
+                throw new Error('Non-existing database called.');
+            }
+
             try {
                 this.instances[instance] = new (require('./lib/adapters/' + config.type))(config);
             } catch (error) {
