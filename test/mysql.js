@@ -43,16 +43,30 @@ describe('MySQL tests', function() {
                     .from('foo')
                     .where('id').in([1, 2, 3])
                     .and().where('name').is('Jasper').limit(10).offset(5),
+                query5 = RaddishDB.getQuery()
+                    .select('*')
+                    .from('foo')
+                    .where('_id').is('507f1f77bcf86cd799439011'),
+                query6 = RaddishDB.getQuery()
+                    .select('*')
+                    .from('foo')
+                    .where('age').between(18, 22)
+                    .where('length').gt('170')
+                    .where('experience').lt(2),
 
                 built = RaddishDB.getInstance('mysql').getBuilder().build(query),
                 built2 = RaddishDB.getInstance('mysql').getBuilder().build(query2),
                 built3 = RaddishDB.getInstance('mysql').getBuilder().build(query3),
-                built4 = RaddishDB.getInstance('mysql').getBuilder().build(query4);
+                built4 = RaddishDB.getInstance('mysql').getBuilder().build(query4),
+                built5 = RaddishDB.getInstance('mysql').getBuilder().build(query5),
+                built6 = RaddishDB.getInstance('mysql').getBuilder().build(query6);
 
             built.should.equal('SELECT * FROM `foo` WHERE (`bar` = \'baz\')');
             built2.should.equal('SELECT `tbl`.`identity_column` AS `id` FROM `foo` AS `tbl` INNER JOIN `baz` ON (`baz`.`bar` = `tbl`.`id`) WHERE (`bar` = \'baz\') OR (`bar` = \'foo\')');
             built3.should.equal('SELECT * FROM `foo` WHERE (`title` LIKE \'%test%\')');
             built4.should.equal('SELECT * FROM `foo` WHERE (`id` IN (1,2,3)) AND (`name` = \'Jasper\') LIMIT 10,5');
+            built5.should.equal('SELECT * FROM `foo` WHERE (`_id` = \'507f1f77bcf86cd799439011\')');
+            built6.should.equal('SELECT * FROM `foo` WHERE (`age` BETWEEN \'18\' AND \'22\') AND (`length` > \'170\') AND (`experience` < \'2\')');
         });
 
         it('Should return a valid update statement', function() {

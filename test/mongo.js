@@ -40,17 +40,43 @@ describe('MongoDB tests', function() {
                 query4 = RaddishDB.getQuery()
                     .select('*')
                     .from('foo')
-                    .where('id').in([1, 2, 3]).limit(10).offset(5),
+                    .where('_id').in(['507f1f77bcf86cd799439011', '507f1f77bcf86cd799439012', '507f1f77bcf86cd799439013']).limit(10).offset(5),
+                query5 = RaddishDB.getQuery()
+                    .select('*')
+                    .from('foo')
+                    .where('_id').is('507f1f77bcf86cd799439011'),
+                query6 = RaddishDB.getQuery()
+                    .select('*')
+                    .from('foo')
+                    .where('age').between(18, 22)
+                    .where('length').gt('170')
+                    .where('experience').lt(2),
 
                 built = RaddishDB.getInstance('mongo').getBuilder().build(query),
                 built2 = RaddishDB.getInstance('mongo').getBuilder().build(query2),
                 built3 = RaddishDB.getInstance('mongo').getBuilder().build(query3),
-                built4 = RaddishDB.getInstance('mongo').getBuilder().build(query4);
+                built4 = RaddishDB.getInstance('mongo').getBuilder().build(query4),
+                built5 = RaddishDB.getInstance('mongo').getBuilder().build(query5),
+                built6 = RaddishDB.getInstance('mongo').getBuilder().build(query6);
 
-            // built.should.equal('SELECT * FROM `foo` WHERE (`bar` = \'baz\')');
-            // built2.should.equal('SELECT `tbl`.`identity_column` AS `id` FROM `foo` AS `tbl` INNER JOIN `baz` ON (`baz`.`bar` = `tbl`.`id`) WHERE (`bar` = \'baz\')');
-            // built3.should.equal('SELECT * FROM `foo` WHERE (`title` LIKE \'%test%\')');
-            // built4.should.equal('SELECT * FROM `foo` WHERE (`id` IN (1,2,3)) LIMIT 10,5');
+            built.collection.should.equal('foo');
+            JSON.stringify(built.query).should.equal('{"bar":"baz"}');
+
+            built2.collection.should.equal('foo');
+            JSON.stringify(built2.query).should.equal('{"bar":"baz"}');
+
+            built3.collection.should.equal('foo');
+            JSON.stringify(built3.query).should.equal('{"title":{"$regex":"%test%"}}');
+
+            built4.collection.should.equal('foo');
+            JSON.stringify(built4.query).should.equal('{"_id":{"$in":["507f1f77bcf86cd799439011","507f1f77bcf86cd799439012","507f1f77bcf86cd799439013"]}}');
+            built4.limit.should.equal(10);
+
+            built5.collection.should.equal('foo');
+            JSON.stringify(built5.query).should.equal('{"_id":"507f1f77bcf86cd799439011"}');
+
+            built6.collection.should.equal('foo');
+            JSON.stringify(built6.query).should.equal('{"age":{"$gte":18,"$lte":22},"length":{"$gte":"170"},"experience":{"$lte":2}}');
         });
 
         it('Should return a valid update statement', function() {

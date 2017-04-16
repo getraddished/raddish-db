@@ -15,12 +15,12 @@
   "devDependencies": {
     "istanbul": "0.4.5",
     "mocha": "3.2.0",
-    "should": "11.2.0"
+    "should": "11.2.1"
   },
   "dependencies": {
     "generic-pool": "3.1.7",
-    "mongodb": "2.2.23",
-    "mysql2": "1.1.2",
+    "mongodb": "2.2.25",
+    "mysql2": "1.2.0",
     "sqlite3": "3.1.8",
     "tunnel-ssh": "4.1.2"
   },
